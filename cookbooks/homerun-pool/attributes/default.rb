@@ -1,0 +1,13 @@
+default['homerun_pool']['name'] = "homerun-pool"
+default['homerun_pool']['project'] = "homerun_pool"
+default['homerun_pool']['hostname'] = "homerun-pool.com"
+default['homerun_pool']['database'] = "homerun_pool"
+default['homerun_pool']['database_host'] = "localhost"
+default['homerun_pool']['database_username'] = "postgres"
+default['homerun_pool']['database_user'] = "homerun"
+default['homerun_pool']['database_user_password'] = "rxDBbJzpkjjFP8Y"
+
+default['homerun_pool']['base'] = "/srv/www"
+default['homerun_pool']['home'] = "#{node['homerun_pool']['base']}/#{node['homerun_pool']['name']}"
+default['homerun_pool']['env'] = "#{node['homerun_pool']['base']}/.env"
+default['homerun_pool']['vagrant_user'] = "/home/vagrant"

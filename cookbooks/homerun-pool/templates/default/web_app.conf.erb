@@ -1,0 +1,28 @@
+<VirtualHost *:80>
+  ServerName <%= @params[:domain_name] %>
+  ServerAlias *.<%= @params[:domain_name] %>
+  DocumentRoot <%= @params[:docroot] %>
+
+  LogLevel info
+  ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
+  CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+
+  Alias /static/ /srv/www/<%= @params[:server_name] %>/<%= @params[:project] %>/static/
+  Alias /media/ /srv/www/<%= @params[:server_name] %>/<%= @params[:project] %>/media/
+
+  <Directory /srv/www/<%= @params[:server_name] %>/<%= @params[:project] %>/static>
+    Order deny,allow
+    Allow from all
+  </Directory>
+
+  <Directory /srv/www/<%= @params[:server_name] %>/<%= @params[:project] %>/media>
+    Order deny,allow
+    Allow from all
+  </Directory>
+
+  WSGIScriptAlias / /srv/www/<%= @params[:server_name] %>/<%= @params[:project] %>/<%= @params[:project] %>/wsgi.py
+  WSGIDaemonProcess localhost python-path=/srv/www/<%= @params[:server_name] %>:/srv/www/.env/lib/python2.6/site-packages
+  WSGIProcessGroup localhost
+
+  EnableSendfile Off
+</VirtualHost>
